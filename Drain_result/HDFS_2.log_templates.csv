@@ -1,0 +1,5 @@
+EventId,EventTemplate,EventTemplateIdent,Occurrences
+E1,BLOCK* NameSystem.allocateBlock: <*> <*>,BLOCK* NameSystem.allocateBlock: <similar_prev_pattern> <block_id>,2
+E2,PacketResponder <*> for block <*> terminating,PacketResponder <Numbers> for block <block_id> terminating,2
+E3,BLOCK* NameSystem.addStoredBlock: blockMap updated: <*> is added to <*> size <*>,BLOCK* NameSystem.addStoredBlock: blockMap updated: <IP> is added to <block_id> size <Numbers>,3
+E4,Received block <*> of size <*> from <*>,Received block <block_id> of size <Numbers> from <IP>,2
