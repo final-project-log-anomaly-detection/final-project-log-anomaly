@@ -21,7 +21,7 @@ data_name = f'hdfs_{params["train_anomaly_ratio"]}_tar'
 data_dir = "data_preprocess/processed/HDFS"
 
 params = {
-    "log_file":  "Tokenize_HDFS/HDFS_2_tokenize.csv",
+    "log_file":  "/Users/thanadonlamsan/Documents/research project จบ/final_project_code/final-project-log-anomaly/Drain_result/HDFS_2k.log_structured.csv",
     "label_file": "HDFS_1/anomaly_label.csv",
     "test_ratio": 0.2,
     "random_sessions": True,  # shuffle sessions
@@ -45,6 +45,9 @@ def preprocess_hdfs(log_file, label_file, test_ratio=None, train_anomaly_ratio=1
     column_idx = {col: idx for idx, col in enumerate(struct_log.columns)}  # split index, data
 
     for _, row in enumerate(struct_log.values):
+        # if re.findall(r"Deleting block  ", row[column_idx["Content"]]):
+        #     print('hello')
+
         blkId_list = re.findall(r"(blk_-?\d+)", row[column_idx["Content"]])  # list block_id ออกมา
         blkId_set = set(blkId_list)  # change block_id to set
         for blk_Id in blkId_set:

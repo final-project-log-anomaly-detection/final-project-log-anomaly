@@ -1,0 +1,8 @@
+EventId,EventTemplate,EventTemplateIdent,Occurrences
+E1,total of <*> ddr error(s) detected and corrected,total of <Numbers> ddr error(s) detected and corrected,1
+E2,"CE sym <*>, at <*> mask <*>","CE sym <Numbers>, at <Memory_address> mask <Hexadecimal>",2
+E3,generating <*>,generating <Core>,6
+E4,BGLMaster has been started: ./BGLMaster --consoleip <*> --consoleport <*> --configfile bglmaster.init,BGLMaster has been started: ./BGLMaster --consoleip <IP> --consoleport <Numbers> --configfile bglmaster.init,1
+E5,"ciod: Error loading <*> invalid or missing program image, Permission denied","ciod: Error loading <Path> invalid or missing program image, Permission denied",7
+E6,Lustre mount FAILED : bglio790 : point <*>,Lustre mount FAILED : bglio790 : point <Path>,1
+E7,"MidplaneSwitchController::receiveTrain() iap failed: R63-M0-L2-U21-A, status=ffbffbff ec<*>","MidplaneSwitchController::receiveTrain() iap failed: R63-M0-L2-U21-A, status=ffbffbff ec<Numbers>",7

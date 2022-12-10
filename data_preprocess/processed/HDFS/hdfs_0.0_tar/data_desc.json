@@ -1,6 +1,6 @@
 {
     "label_file": "HDFS_1/anomaly_label.csv",
-    "log_file": "Tokenize_HDFS/HDFS_2_tokenize.csv",
+    "log_file": "Drain_result/HDFS_2.log_structured.csv",
     "random_sessions": true,
     "test_ratio": 0.2,
     "train_anomaly_ratio": 0.0
