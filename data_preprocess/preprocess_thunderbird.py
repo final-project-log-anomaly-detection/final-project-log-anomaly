@@ -8,7 +8,6 @@ import pickle
 from utils import json_pretty_dump
 from sklearn.model_selection import train_test_split
 
-
 seed = 42
 np.random.seed(seed)
 
@@ -18,23 +17,21 @@ parser.add_argument("--train_anomaly_ratio", default=0.0, type=float)
 
 params = vars(parser.parse_args())
 
-data_name = f'bgl_{params["train_anomaly_ratio"]}_tar'
-data_dir = "data_preprocess/processed/BGL_preprocessed/"
+data_name = f'thunderbird_{params["train_anomaly_ratio"]}_tar'
+data_dir = "data_preprocess/processed/thunderbird_preprocessed/"
 
 params = {
-    "log_file":  "/Users/thanadonlamsan/Documents/research project จบ/final_project_code/final-project-log-anomaly/Drain_result/BGL_2.log_structured.csv",
+    "log_file":  "/Users/thanadonlamsan/Documents/research project จบ/final_project_code/final-project-log-anomaly/Drain_result/thunderbird_small.log_structured.csv",
     "test_ratio": 0.2,
-    # "random_sessions": True,  # shuffle sessions
     "train_anomaly_ratio": params["train_anomaly_ratio"],
-    # "train_word2Vec": False
 }
 
 data_dir = os.path.join(data_dir, data_name)
 os.makedirs(data_dir, exist_ok=True)
 
 
-def preprocess_bgl(log_file, test_ratio=None, train_anomaly_ratio=1, **kwargs):
-    print("Loading BGL logs from {}.".format(log_file))
+def preprocess_thunderbird(log_file, test_ratio=None, train_anomaly_ratio=1, **kwargs):
+    print("Loading ThunderBird logs from {}.".format(log_file))
 
     struct_log = pd.read_csv(log_file, engine="c", na_filter=False, memory_map=True)
     struct_log['Label'] = struct_log['Label'].map(lambda x: int(x != "-"))
@@ -45,8 +42,7 @@ def preprocess_bgl(log_file, test_ratio=None, train_anomaly_ratio=1, **kwargs):
         eventTemplateToken.append(str(row['EventTemplateIdent']).split())
 
     trainWord2VecModel(eventTemplateToken)
-
-    model = Word2Vec.load("word2vec_bgl.model")
+    model = Word2Vec.load("word2vec_thunderbird.model")
     for token_list in eventTemplateToken:
         list_vector = []
         for word in token_list:
@@ -73,9 +69,9 @@ def preprocess_bgl(log_file, test_ratio=None, train_anomaly_ratio=1, **kwargs):
 def trainWord2VecModel(eventTemplateToken):
     print("start train word2Vec model. . . . .")
     model = Word2Vec(sentences=eventTemplateToken, vector_size=200, window=5, min_count=1, workers=4)
-    model.save('word2vec_bgl.model')
+    model.save('word2vec_thunderbird.model')
     print('finish train word2Vec model . . . . . ^^')
 
 
 if __name__ == '__main__':
-    preprocess_bgl(**params)
+    preprocess_thunderbird(**params)

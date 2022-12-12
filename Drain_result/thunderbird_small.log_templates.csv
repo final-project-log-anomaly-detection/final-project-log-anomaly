@@ -1,0 +1,15 @@
+EventId,EventTemplate,EventTemplateIdent,Occurrences
+E1,pam_timestamp: updated timestamp file `<*>',pam_timestamp: updated timestamp file `<Path>',1
+E2,running '<*> --nox -i ganglia-gmond' with root privileges on behalf of 'root',running '<Path> --nox -i ganglia-gmond' with root privileges on behalf of 'root',1
+E3,"synchronized to <*>, stratum <*>","synchronized to <IP>, stratum <Numbers>",2
+E4,[ib_sm_sweep.c:<*>]: ********************** NEW SWEEP ********************,[ib_sm_sweep.c:<Numbers>]: ********************** NEW SWEEP ********************,1
+E5,gmond <*> succeeded,gmond <similar_prev_pattern> succeeded,2
+E6,Kickstart Install: Setup to become a Tbird login,Kickstart Install: Setup to become a Tbird login,1
+E7,Kickstart Install: tbird kernel package,Kickstart Install: tbird kernel package,1
+E8,Kickstart: setup firstboot for tbird panasas env,Kickstart: setup firstboot for tbird panasas env,1
+E9,data_thread() got not answer from any [Thunderbird_B<*>] datasource,data_thread() got not answer from any [Thunderbird_B<Numbers>] datasource,2
+E10,RRD_update (<*> Nodes<*>): illegal attempt to update using time <*> when last update time is <*> (minimum one second step),RRD_update (<Path> Nodes<Path>): illegal attempt to update using time <Numbers> when last update time is <Numbers> (minimum one second step),1
+E11,FADT (v<*> DELL PE BKC <*> MSFT <*>) @ <*>,FADT (v<Numbers> DELL PE BKC <Hexadecimal> MSFT <Hexadecimal>) @ <Hexadecimal>,1
+E12,HPET (v<*> DELL PE BKC <*> MSFT <*>) @ <*>,HPET (v<Numbers> DELL PE BKC <Hexadecimal> MSFT <Hexadecimal>) @ <Hexadecimal>,1
+E13,ACPI: PCI Interrupt Routing Table [<*>],ACPI: PCI Interrupt Routing Table [<RT>],2
+E14,"[KERNEL_IB][tsIbTavorMadProcess][<*>:<*>]InfiniHost<*>: EVAPI_process_local_mad failed, return code = -<*> (Fatal error (Local Catastrophic Error))","[KERNEL_IB][tsIbTavorMadProcess][<Path>:<Numbers>]InfiniHost<Numbers>: EVAPI_process_local_mad failed, return code = -<Numbers> (Fatal error (Local Catastrophic Error))",3

@@ -236,7 +236,6 @@ class LogParser:
         self.df_log['EventTemplate'] = log_templates
         self.df_log['EventTemplateIdent'] = log_templateIdents
         # add 2 more column for EventId and EventTemplate
-
         if self.keep_para:
             _logger.warning(self.get_parameter_list)
 
@@ -397,6 +396,7 @@ class LogParser:
         template_regex = "^" + template_regex.replace("\<\*\>", "(.*?)") + "$"
 
         parameter_list = re.findall(template_regex, row["Content"])
+        # print(parameter_list)
         parameter_list = parameter_list[0] if parameter_list else ()
         parameter_list = list(parameter_list) if isinstance(parameter_list, tuple) else [parameter_list]
         return parameter_list

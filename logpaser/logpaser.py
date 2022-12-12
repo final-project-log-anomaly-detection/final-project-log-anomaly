@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 import Drain
 import sys
-import Tokenization
 sys.path.append('../')
 
 # The input directory of log file
@@ -18,24 +17,16 @@ regex = [
     # {'regex': r'blk_(|-)[0-9]+', 'name': 'block_id'},  # block id
     # {'regex': r'(/|)([0-9]+\.){3}[0-9]+(:[0-9]+|)(:|)', 'name': 'IP'},  # IP
     # {'regex': r'(?<=[^A-Za-z0-9])(\-?\+?\d+)(?=[^A-Za-z0-9])|[0-9]+$', 'name': 'Numbers'},  # Numbers
-    {'regex': r'0x.{8},?', 'name': 'Memory_address'},  # memory address
-    {'regex': r'0x.+[0-9a-f]', 'name': 'Hexadecimal'},
+    # {'regex': r'0x.{8},?', 'name': 'Memory_address'},  # memory address
+    {'regex': r'0[xX][0-9a-fA-F]+', 'name': 'Hexadecimal'},
     {'regex': r'core.+', 'name': 'Core'},  # core
     {'regex': r'(/|)([0-9]+\.){3}[0-9]+(:[0-9]+|)(:|)', 'name': 'IP'},  # IP
-    {'regex': r'(\/.*?\/)((?:[^\/]|\\\/)+?)(?:(?<!\\):|$)', 'name': 'Path'},  # path
-    {'regex': r'(?<=[^A-Za-z0-9])(\-?\+?\d+)(?=[^A-Za-z0-9])|[0-9]+$', 'name': 'Numbers'},  # Numbers
+    # {'regex': r'(\/.*?\/)((?:[^\/]|\\\/)+?)(?:(?<!\\):|$)', 'name': 'Path'},  # path
+    {'regex': r'(\/[\w-]+)+(\.\w+)?', 'name': 'Path'},  # path
+    {'regex': r'[0-9]+', 'name': 'Numbers'},  # Numbers
 ]
 st = 0.5  # Similarity threshold
 depth = 4  # Depth of all leaf nodes
 
 parser = Drain.LogParser(log_format, indir=input_dir, outdir=output_dir,  depth=depth, st=st, rex=regex)
 parser.parse(log_file)
-
-######################################################################################################################################################
-
-# dir_file = 'Drain_result/'
-# file_name = 'HDFS_2.log_structured.csv'
-# file_name_out = 'HDFS_2'
-# out_dir = 'Tokenize_HDFS/'
-# token = Tokenization.Tokenize(dir_file, file_name, out_dir, file_name_out)
-# token.splitText()
