@@ -1,5 +1,6 @@
 {
     "log_file": "/Users/thanadonlamsan/Documents/research project จบ/final_project_code/final-project-log-anomaly/Drain_result/BGL_2.log_structured.csv",
     "test_ratio": 0.2,
-    "train_anomaly_ratio": 0.0
+    "train_anomaly_ratio": 0.0,
+    "train_word2Vec": false
 }

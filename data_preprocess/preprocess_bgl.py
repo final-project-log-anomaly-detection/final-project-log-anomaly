@@ -2,7 +2,8 @@ import numpy as np
 import argparse
 import pandas as pd
 
-from gensim.models.word2vec import Word2Vec
+from gensim.models import Word2Vec, KeyedVectors
+from gensim.scripts.glove2word2vec import glove2word2vec
 import os
 import pickle
 from utils import json_pretty_dump
@@ -26,14 +27,14 @@ params = {
     "test_ratio": 0.2,
     # "random_sessions": True,  # shuffle sessions
     "train_anomaly_ratio": params["train_anomaly_ratio"],
-    # "train_word2Vec": False
+    "train_word2Vec": False
 }
 
 data_dir = os.path.join(data_dir, data_name)
 os.makedirs(data_dir, exist_ok=True)
 
 
-def preprocess_bgl(log_file, test_ratio=None, train_anomaly_ratio=1, **kwargs):
+def preprocess_bgl(log_file, test_ratio=None, train_anomaly_ratio=1, train_word2Vec=False, **kwargs):
     print("Loading BGL logs from {}.".format(log_file))
 
     struct_log = pd.read_csv(log_file, engine="c", na_filter=False, memory_map=True)
@@ -44,12 +45,14 @@ def preprocess_bgl(log_file, test_ratio=None, train_anomaly_ratio=1, **kwargs):
     for _, row in struct_log.iterrows():
         eventTemplateToken.append(str(row['EventTemplateIdent']).split())
 
-    trainWord2VecModel(eventTemplateToken)
+    if train_word2Vec:
+        trainWord2VecModel(eventTemplateToken)
 
     model = Word2Vec.load("word2vec_bgl.model")
     for token_list in eventTemplateToken:
         list_vector = []
         for word in token_list:
+            # print(model.wv[word])
             list_vector.append(model.wv[word])
         eventVectors.append(list_vector)
 
@@ -72,9 +75,24 @@ def preprocess_bgl(log_file, test_ratio=None, train_anomaly_ratio=1, **kwargs):
 
 def trainWord2VecModel(eventTemplateToken):
     print("start train word2Vec model. . . . .")
-    model = Word2Vec(sentences=eventTemplateToken, vector_size=200, window=5, min_count=1, workers=4)
+    model = Word2Vec(vector_size=300, window=5, min_count=1, workers=4)
+    model.build_vocab(eventTemplateToken)
+    training_examples_count = model.corpus_count
+    preTrained_model = KeyedVectors.load_word2vec_format(
+        "./google_news/GoogleNews-vectors-negative300.bin",
+        binary=True
+    )
+    model.build_vocab([list(preTrained_model.key_to_index.keys())], update=True)
+    model.wv.vectors_lockf = np.ones(len(model.wv), dtype=np.float32)
+    model.wv.intersect_word2vec_format("./google_news/GoogleNews-vectors-negative300.bin", binary=True, lockf=1.0)
+    model.train(eventTemplateToken, total_examples=training_examples_count, epochs=5)
     model.save('word2vec_bgl.model')
     print('finish train word2Vec model . . . . . ^^')
+
+
+def convertGloveWord2Vec():
+    # _ = glove2word2vec("./glove/glove.6B.200d.txt", "./glove_word2vec/glove.6B.200d_word2vec.txt")
+    pass
 
 
 if __name__ == '__main__':
