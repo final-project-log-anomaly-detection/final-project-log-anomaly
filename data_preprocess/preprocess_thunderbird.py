@@ -43,7 +43,7 @@ def preprocess_thunderbird(log_file, test_ratio=None, train_anomaly_ratio=1, tra
 
     train_data, test_data = train_test_split(struct_log, test_size=test_ratio, random_state=42)
     train_data = train_data.loc[train_data['Label'] == 0]
-    print(train_data)
+
     train_data = train_data.sort_values(by=['Date', 'Time'])
     test_data = test_data.sort_values(by=['Date', 'Time'])
 
