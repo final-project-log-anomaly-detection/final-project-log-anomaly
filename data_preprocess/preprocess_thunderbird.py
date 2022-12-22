@@ -5,7 +5,7 @@ import pandas as pd
 from gensim.models.word2vec import Word2Vec
 import os
 import pickle
-from utils import json_pretty_dump
+from utils import json_pretty_dump, word2VecContinueLearning, trainWord2VecModel, tokenizeData, convertWord2Vec
 from sklearn.model_selection import train_test_split
 
 seed = 42
@@ -23,38 +23,44 @@ data_dir = "data_preprocess/processed/thunderbird_preprocessed/"
 params = {
     "log_file":  "/Users/thanadonlamsan/Documents/research project จบ/final_project_code/final-project-log-anomaly/Drain_result/thunderbird_small.log_structured.csv",
     "test_ratio": 0.2,
+    # "random_sessions": True,  # shuffle sessions
     "train_anomaly_ratio": params["train_anomaly_ratio"],
+    "train_word2Vec": True
 }
 
 data_dir = os.path.join(data_dir, data_name)
 os.makedirs(data_dir, exist_ok=True)
 
 
-def preprocess_thunderbird(log_file, test_ratio=None, train_anomaly_ratio=1, **kwargs):
+def preprocess_thunderbird(log_file, test_ratio=None, train_anomaly_ratio=1, train_word2Vec=False, **kwargs):
     print("Loading ThunderBird logs from {}.".format(log_file))
 
     struct_log = pd.read_csv(log_file, engine="c", na_filter=False, memory_map=True)
     struct_log['Label'] = struct_log['Label'].map(lambda x: int(x != "-"))
-    eventTemplateToken = []
+    eventTemplateTokenTrain = []
+    eventTemplateTokenTest = []
     eventVectors = []
-
-    for _, row in struct_log.iterrows():
-        eventTemplateToken.append(str(row['EventTemplateIdent']).split())
-
-    trainWord2VecModel(eventTemplateToken)
-    model = Word2Vec.load("word2vec_thunderbird.model")
-    for token_list in eventTemplateToken:
-        list_vector = []
-        for word in token_list:
-            list_vector.append(model.wv[word])
-        eventVectors.append(list_vector)
-
-    struct_log['EventTemplateIdentToken'] = eventTemplateToken
-    struct_log['Vectors'] = eventVectors
-    print('Total rows: ', len(struct_log))
 
     train_data, test_data = train_test_split(struct_log, test_size=test_ratio, random_state=42)
     train_data = train_data.loc[train_data['Label'] == 0]
+    print(train_data)
+    train_data = train_data.sort_values(by=['Date', 'Time'])
+    test_data = test_data.sort_values(by=['Date', 'Time'])
+
+    eventTemplateTokenTrain = tokenizeData(train_data)
+    eventTemplateTokenTest = tokenizeData(test_data)
+
+    if train_word2Vec:
+        trainWord2VecModel(eventTemplateTokenTrain, 'word2vec_thunderbird')
+
+    model = Word2Vec.load("word2vec_thunderbird.model")
+    eventVectors = convertWord2Vec(eventTemplateTokenTrain, model)
+    train_data['EventTemplateIdentToken'] = eventTemplateTokenTrain
+    train_data['Vectors'] = eventVectors
+
+    eventVectors = convertWord2Vec(eventTemplateTokenTest, model)
+    test_data['EventTemplateIdentToken'] = eventTemplateTokenTest
+    test_data['Vectors'] = eventVectors
 
     print("# train sessions: {} ({:.2f}%)".format(len(train_data), 100*sum(train_data['Label'])/len(train_data)))
     print("# test sessions: {} ({:.2f}%)".format(len(test_data), 100*sum(test_data['Label'])/len(test_data)))
@@ -64,13 +70,6 @@ def preprocess_thunderbird(log_file, test_ratio=None, train_anomaly_ratio=1, **k
     with open(os.path.join(data_dir, "session_test.pkl"), "wb") as fw:
         pickle.dump(test_data, fw)
     json_pretty_dump(params, os.path.join(data_dir, "data_desc.json"))
-
-
-def trainWord2VecModel(eventTemplateToken):
-    print("start train word2Vec model. . . . .")
-    model = Word2Vec(sentences=eventTemplateToken, vector_size=200, window=5, min_count=1, workers=4)
-    model.save('word2vec_thunderbird.model')
-    print('finish train word2Vec model . . . . . ^^')
 
 
 if __name__ == '__main__':

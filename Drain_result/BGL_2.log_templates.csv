@@ -8,3 +8,4 @@ E6,Lustre mount FAILED : bglio<*> : point <*>,Lustre mount FAILED : bglio<Number
 E7,"MidplaneSwitchController::receiveTrain() iap failed: R<*>-M<*>-L<*>-U<*>-A, status=ffbffbff ec<*>","MidplaneSwitchController::receiveTrain() iap failed: R<Numbers>-M<Numbers>-L<Numbers>-U<Numbers>-A, status=ffbffbff ec<Numbers>",7
 E8,<*> floating point alignment exceptions,<Numbers> floating point alignment exceptions,2
 E9,"<*> total interrupts. <*> critical input interrupts. <*> microseconds total spent on critical input interrupts, <*> microseconds max time in a critical input interrupt.","<Numbers> total interrupts. <Numbers> critical input interrupts. <Numbers> microseconds total spent on critical input interrupts, <Numbers> microseconds max time in a critical input interrupt.",1
+E10,wbbyjjjjyjyhhuki.,wbbyjjjjyjyhhuki.,1

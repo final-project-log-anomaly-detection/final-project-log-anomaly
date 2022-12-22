@@ -13,3 +13,8 @@ E11,FADT (v<*> DELL PE BKC <*> MSFT <*>) @ <*>,FADT (v<Numbers> DELL PE BKC <Hex
 E12,HPET (v<*> DELL PE BKC <*> MSFT <*>) @ <*>,HPET (v<Numbers> DELL PE BKC <Hexadecimal> MSFT <Hexadecimal>) @ <Hexadecimal>,1
 E13,ACPI: PCI Interrupt Routing Table [<*>],ACPI: PCI Interrupt Routing Table [<RT>],2
 E14,"[KERNEL_IB][tsIbTavorMadProcess][<*>:<*>]InfiniHost<*>: EVAPI_process_local_mad failed, return code = -<*> (Fatal error (Local Catastrophic Error))","[KERNEL_IB][tsIbTavorMadProcess][<Path>:<Numbers>]InfiniHost<Numbers>: EVAPI_process_local_mad failed, return code = -<Numbers> (Fatal error (Local Catastrophic Error))",3
+E15,dcevt<*>d startup succeeded,dcevt<Numbers>d startup succeeded,1
+E16,dcstor<*>d startup succeeded,dcstor<Numbers>d startup succeeded,1
+E17,dcdipm device driver loaded,dcdipm device driver loaded,1
+E18,tput: No value for $TERM and no -T specified,tput: No value for $TERM and no -T specified,2
+E19,omsad<*> startup succeeded,omsad<Numbers> startup succeeded,1

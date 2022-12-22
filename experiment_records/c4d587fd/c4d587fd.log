@@ -1,0 +1,250 @@
+2022-12-13 11:22:02,523 P62208 INFO {
+    "dataset": "BGL",
+    "data_dir": "/Users/thanadonlamsan/Documents/research project \u0e08\u0e1a/final_project_code/final-project-log-anomaly/data_preprocess/processed/BGL_preprocessed/bgl_0.0_tar",
+    "model_name": "LSTM",
+    "use_attention": false,
+    "hidden_size": 128,
+    "num_layers": 2,
+    "num_directions": 2,
+    "embedding_dim": 32,
+    "feature_type": "semantics",
+    "label_type": "next_log",
+    "use_tfidf": false,
+    "max_token_len": 50,
+    "min_token_count": 1,
+    "epoches": 100,
+    "batch_size": 1024,
+    "learning_rate": 0.01,
+    "topk": 10,
+    "patience": 3,
+    "random_seed": 42,
+    "gpu": 0,
+    "hash_id": "c4d587fd"
+}
+2022-12-13 11:22:02,684 P62208 INFO # train sessions 15 (0.00 anomalies)
+2022-12-13 11:22:02,684 P62208 INFO # test sessions 6 (0.17 anomalies)
+2022-12-13 11:22:11,965 P62220 INFO {
+    "dataset": "BGL",
+    "data_dir": "/Users/thanadonlamsan/Documents/research project \u0e08\u0e1a/final_project_code/final-project-log-anomaly/data_preprocess/processed/BGL_preprocessed/bgl_0.0_tar",
+    "model_name": "LSTM",
+    "use_attention": false,
+    "hidden_size": 128,
+    "num_layers": 2,
+    "num_directions": 2,
+    "embedding_dim": 32,
+    "feature_type": "semantics",
+    "label_type": "next_log",
+    "use_tfidf": false,
+    "max_token_len": 50,
+    "min_token_count": 1,
+    "epoches": 100,
+    "batch_size": 1024,
+    "learning_rate": 0.01,
+    "topk": 10,
+    "patience": 3,
+    "random_seed": 42,
+    "gpu": 0,
+    "hash_id": "c4d587fd"
+}
+2022-12-13 11:22:12,077 P62220 INFO # train sessions 15 (0.00 anomalies)
+2022-12-13 11:22:12,077 P62220 INFO # test sessions 6 (0.17 anomalies)
+2022-12-18 15:21:12,686 P98276 INFO {
+    "dataset": "BGL",
+    "data_dir": "/Users/thanadonlamsan/Documents/research project \u0e08\u0e1a/final_project_code/final-project-log-anomaly/data_preprocess/processed/BGL_preprocessed/bgl_0.0_tar",
+    "model_name": "LSTM",
+    "use_attention": false,
+    "hidden_size": 128,
+    "num_layers": 2,
+    "num_directions": 2,
+    "embedding_dim": 32,
+    "feature_type": "semantics",
+    "label_type": "next_log",
+    "use_tfidf": false,
+    "max_token_len": 50,
+    "min_token_count": 1,
+    "epoches": 100,
+    "batch_size": 1024,
+    "learning_rate": 0.01,
+    "topk": 10,
+    "patience": 3,
+    "random_seed": 42,
+    "gpu": 0,
+    "hash_id": "c4d587fd"
+}
+2022-12-18 15:21:12,797 P98276 INFO # train sessions 15 (0.00 anomalies)
+2022-12-18 15:21:12,797 P98276 INFO # test sessions 6 (0.17 anomalies)
+2022-12-18 15:25:27,209 P98378 INFO {
+    "dataset": "BGL",
+    "data_dir": "/Users/thanadonlamsan/Documents/research project \u0e08\u0e1a/final_project_code/final-project-log-anomaly/data_preprocess/processed/BGL_preprocessed/bgl_0.0_tar",
+    "model_name": "LSTM",
+    "use_attention": false,
+    "hidden_size": 128,
+    "num_layers": 2,
+    "num_directions": 2,
+    "embedding_dim": 32,
+    "feature_type": "semantics",
+    "label_type": "next_log",
+    "use_tfidf": false,
+    "max_token_len": 50,
+    "min_token_count": 1,
+    "epoches": 100,
+    "batch_size": 1024,
+    "learning_rate": 0.01,
+    "topk": 10,
+    "patience": 3,
+    "random_seed": 42,
+    "gpu": 0,
+    "hash_id": "c4d587fd"
+}
+2022-12-18 15:25:27,297 P98378 INFO # train sessions 15 (0.00 anomalies)
+2022-12-18 15:25:27,297 P98378 INFO # test sessions 6 (0.17 anomalies)
+2022-12-18 15:25:33,079 P98388 INFO {
+    "dataset": "BGL",
+    "data_dir": "/Users/thanadonlamsan/Documents/research project \u0e08\u0e1a/final_project_code/final-project-log-anomaly/data_preprocess/processed/BGL_preprocessed/bgl_0.0_tar",
+    "model_name": "LSTM",
+    "use_attention": false,
+    "hidden_size": 128,
+    "num_layers": 2,
+    "num_directions": 2,
+    "embedding_dim": 32,
+    "feature_type": "semantics",
+    "label_type": "next_log",
+    "use_tfidf": false,
+    "max_token_len": 50,
+    "min_token_count": 1,
+    "epoches": 100,
+    "batch_size": 1024,
+    "learning_rate": 0.01,
+    "topk": 10,
+    "patience": 3,
+    "random_seed": 42,
+    "gpu": 0,
+    "hash_id": "c4d587fd"
+}
+2022-12-18 15:25:33,179 P98388 INFO # train sessions 15 (0.00 anomalies)
+2022-12-18 15:25:33,179 P98388 INFO # test sessions 6 (0.17 anomalies)
+2022-12-18 15:31:40,034 P98460 INFO {
+    "dataset": "BGL",
+    "data_dir": "/Users/thanadonlamsan/Documents/research project \u0e08\u0e1a/final_project_code/final-project-log-anomaly/data_preprocess/processed/BGL_preprocessed/bgl_0.0_tar",
+    "model_name": "LSTM",
+    "use_attention": false,
+    "hidden_size": 128,
+    "num_layers": 2,
+    "num_directions": 2,
+    "embedding_dim": 32,
+    "feature_type": "semantics",
+    "label_type": "next_log",
+    "use_tfidf": false,
+    "max_token_len": 50,
+    "min_token_count": 1,
+    "epoches": 100,
+    "batch_size": 1024,
+    "learning_rate": 0.01,
+    "topk": 10,
+    "patience": 3,
+    "random_seed": 42,
+    "gpu": 0,
+    "hash_id": "c4d587fd"
+}
+2022-12-18 15:31:40,130 P98460 INFO # train sessions 15 (0.00 anomalies)
+2022-12-18 15:31:40,130 P98460 INFO # test sessions 6 (0.17 anomalies)
+2022-12-18 15:54:02,212 P98611 INFO {
+    "dataset": "BGL",
+    "data_dir": "/Users/thanadonlamsan/Documents/research project \u0e08\u0e1a/final_project_code/final-project-log-anomaly/data_preprocess/processed/BGL_preprocessed/bgl_0.0_tar",
+    "model_name": "LSTM",
+    "use_attention": false,
+    "hidden_size": 128,
+    "num_layers": 2,
+    "num_directions": 2,
+    "embedding_dim": 32,
+    "feature_type": "semantics",
+    "label_type": "next_log",
+    "use_tfidf": false,
+    "max_token_len": 50,
+    "min_token_count": 1,
+    "epoches": 100,
+    "batch_size": 1024,
+    "learning_rate": 0.01,
+    "topk": 10,
+    "patience": 3,
+    "random_seed": 42,
+    "gpu": 0,
+    "hash_id": "c4d587fd"
+}
+2022-12-18 15:54:02,332 P98611 INFO # train sessions 15 (0.00 anomalies)
+2022-12-18 15:54:02,332 P98611 INFO # test sessions 6 (0.17 anomalies)
+2022-12-18 15:54:08,954 P98625 INFO {
+    "dataset": "BGL",
+    "data_dir": "/Users/thanadonlamsan/Documents/research project \u0e08\u0e1a/final_project_code/final-project-log-anomaly/data_preprocess/processed/BGL_preprocessed/bgl_0.0_tar",
+    "model_name": "LSTM",
+    "use_attention": false,
+    "hidden_size": 128,
+    "num_layers": 2,
+    "num_directions": 2,
+    "embedding_dim": 32,
+    "feature_type": "semantics",
+    "label_type": "next_log",
+    "use_tfidf": false,
+    "max_token_len": 50,
+    "min_token_count": 1,
+    "epoches": 100,
+    "batch_size": 1024,
+    "learning_rate": 0.01,
+    "topk": 10,
+    "patience": 3,
+    "random_seed": 42,
+    "gpu": 0,
+    "hash_id": "c4d587fd"
+}
+2022-12-18 15:54:09,059 P98625 INFO # train sessions 15 (0.00 anomalies)
+2022-12-18 15:54:09,059 P98625 INFO # test sessions 6 (0.17 anomalies)
+2022-12-18 15:54:34,199 P98637 INFO {
+    "dataset": "BGL",
+    "data_dir": "/Users/thanadonlamsan/Documents/research project \u0e08\u0e1a/final_project_code/final-project-log-anomaly/data_preprocess/processed/BGL_preprocessed/bgl_0.0_tar",
+    "model_name": "LSTM",
+    "use_attention": false,
+    "hidden_size": 128,
+    "num_layers": 2,
+    "num_directions": 2,
+    "embedding_dim": 32,
+    "feature_type": "semantics",
+    "label_type": "next_log",
+    "use_tfidf": false,
+    "max_token_len": 50,
+    "min_token_count": 1,
+    "epoches": 100,
+    "batch_size": 1024,
+    "learning_rate": 0.01,
+    "topk": 10,
+    "patience": 3,
+    "random_seed": 42,
+    "gpu": 0,
+    "hash_id": "c4d587fd"
+}
+2022-12-18 15:54:34,303 P98637 INFO # train sessions 15 (0.00 anomalies)
+2022-12-18 15:54:34,303 P98637 INFO # test sessions 6 (0.17 anomalies)
+2022-12-18 15:54:55,109 P98649 INFO {
+    "dataset": "BGL",
+    "data_dir": "/Users/thanadonlamsan/Documents/research project \u0e08\u0e1a/final_project_code/final-project-log-anomaly/data_preprocess/processed/BGL_preprocessed/bgl_0.0_tar",
+    "model_name": "LSTM",
+    "use_attention": false,
+    "hidden_size": 128,
+    "num_layers": 2,
+    "num_directions": 2,
+    "embedding_dim": 32,
+    "feature_type": "semantics",
+    "label_type": "next_log",
+    "use_tfidf": false,
+    "max_token_len": 50,
+    "min_token_count": 1,
+    "epoches": 100,
+    "batch_size": 1024,
+    "learning_rate": 0.01,
+    "topk": 10,
+    "patience": 3,
+    "random_seed": 42,
+    "gpu": 0,
+    "hash_id": "c4d587fd"
+}
+2022-12-18 15:54:55,214 P98649 INFO # train sessions 15 (0.00 anomalies)
+2022-12-18 15:54:55,214 P98649 INFO # test sessions 6 (0.17 anomalies)
