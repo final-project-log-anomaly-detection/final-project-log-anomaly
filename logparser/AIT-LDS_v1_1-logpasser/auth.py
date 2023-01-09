@@ -20,9 +20,12 @@ depth = 4  # Depth of all leaf nodes
 
 log_file = 'auth.log'
 
-log_format = '<Month> <Day> <Time> <Type> <something_1>: <something_2>: <Content>'
+log_format = '<Month> <Day> <Time> <Type> <Job>: <Pam_unix>: <Content>'
 
-regex = []
+regex = [
+    {'regex': r'(/|)([0-9]+\.){3}[0-9]+(:[0-9]+|)(:|)', 'name': 'IP'},  # IP
+    {'regex': r'[0-9]+', 'name': 'Numbers'},  # Numbers
+]
 
 parser = Drain.LogParser(log_format, indir=inputs_dir[0], outdir=outputs_dir,  depth=depth, st=st, rex=regex)
 parser.parse(log_file)
