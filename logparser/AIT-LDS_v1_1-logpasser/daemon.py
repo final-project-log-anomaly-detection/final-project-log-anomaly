@@ -20,9 +20,15 @@ depth = 4  # Depth of all leaf nodes
 
 log_file = 'daemon.log'
 
-log_format = '<Month> <Day> <Time> <Type> <something_1>: <Content>'
+log_format = '<Month> <Day> <Time> <Type> <Job>: <Content>'
 
-regex = []
+regex = [
+    {'regex': r'(/|)([0-9]+\.){3}[0-9]+(:[0-9]+|)(:|)', 'name': 'IP'},  # IP
+    {'regex': r'[0-9]+h', 'name': 'Hour'},  # Hours
+    {'regex': r'[0-9]+min', 'name': 'Minute'},  # Minute
+    {'regex': r'[0-9]+\.[0-9]+s', 'name': 'Second'},  # Seconds
+    {'regex': r'[0-9]+', 'name': 'Numbers'},  # Numbers
+]
 
 parser = Drain.LogParser(log_format, indir=inputs_dir[0], outdir=outputs_dir,  depth=depth, st=st, rex=regex)
 parser.parse(log_file)

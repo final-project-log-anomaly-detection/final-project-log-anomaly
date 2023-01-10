@@ -19,11 +19,15 @@ st = 0.5  # Similarity threshold
 depth = 4  # Depth of all leaf nodes
 
 log_file = ['mail.cup.com-access.log', 'mail.insect.com-access.log',
-            'mail.onion.com-access.log', 'mail.spiral.com-access.log']
+            'mail.onion.com-access.log', 'mail.spiral.com-access.log', 'test.log']
 
 log_format = '<IP> - - \[<DateTime>\] "<Content>"'
 
-regex = []
+regex = [
+    {'regex': r'(GET|POST|OPTIONS)', 'name': 'Method'},  # Methods
+    {'regex': r'("http:.*?"|"https:.*?")', 'name': 'URL'},  # URL
+    {'regex': r'[0-9]+', 'name': 'Numbers'},  # Numbers
+]
 
-parser = Drain.LogParser(log_format, indir=inputs_dir[1], outdir=outputs_dir,  depth=depth, st=st, rex=regex)
-parser.parse(log_file[1])
+parser = Drain.LogParser(log_format, indir=inputs_dir[0], outdir=outputs_dir,  depth=depth, st=st, rex=regex)
+parser.parse(log_file[4])
