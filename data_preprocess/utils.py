@@ -1,7 +1,10 @@
 import random
 import json
 from gensim.models import Word2Vec, KeyedVectors
+from nltk.tokenize import RegexpTokenizer
+import pandas as pd
 import numpy as np
+import re
 
 
 def decision(probability):
@@ -37,6 +40,27 @@ def trainWord2VecModel(eventTemplateToken, model_name):
     print('finish train word2Vec model . . . . . ^^')
 
 
+def trainWord2VecModelType2(token_train_list):
+    print("start train word2Vec model. . . . .")
+    model = KeyedVectors.load_word2vec_format(
+        "./google_news/GoogleNews-vectors-negative300.bin",
+        binary=True
+    )
+
+    embedder = Word2Vec(vector_size=300, min_count=1)
+    embedder.build_vocab(token_train_list)
+    total_examples = embedder.corpus_count
+    embedder.build_vocab([list(model.key_to_index.keys())], update=True)
+
+    embedder.wv.vectors_lockf = np.ones(len(embedder.wv), dtype=np.float32)
+    embedder.wv.intersect_word2vec_format("./google_news/GoogleNews-vectors-negative300.bin", binary=True)
+
+    embedder.train(token_train_list, total_examples=total_examples, epochs=10)
+
+    embedder.wv.save_word2vec_format("./BGL-fine-tune-embedder.txt", binary=False)
+    print('finish train word2Vec model . . . . . ^^')
+
+
 def word2VecContinueLearning(eventTemplateToken, name):
     model = Word2Vec.load(name)
     model.train(eventTemplateToken, total_examples=1, epochs=5)
@@ -69,3 +93,11 @@ def tokenizeData(data):
         list_data.append(str(row['EventTemplateIdent']).split())
 
     return list_data
+
+
+def text_cleansing(text):
+    regex_except_token = r'\B(?!<\w+>\B)[^\w\s]'
+    regex_expect_words = r'[^\w<>]+'
+    output = re.sub(regex_except_token, '', text)
+    output = re.sub(regex_expect_words, ' ', output)
+    return output

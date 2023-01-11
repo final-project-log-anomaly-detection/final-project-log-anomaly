@@ -7,7 +7,7 @@ input_dir = 'ThunderBird/'
 output_dir = 'Drain_result/'  # The output directory of parsing results
 
 
-log_file = 'thunderbird_small.log'
+log_file = 'thunderbird_10M.log'
 
 log_format = '<Label> <Timestamp> <Date> <User> <Month> <Day> <Time> <Location> <Component>(\[<PID>\])?: <Content>'
 
