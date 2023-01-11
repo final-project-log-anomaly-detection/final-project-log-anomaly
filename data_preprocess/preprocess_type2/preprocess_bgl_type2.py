@@ -21,8 +21,8 @@ np.random.seed(seed)
 data_dir = "./data_preprocess/processed_type2/BGL_preprocessed_type2"
 
 params = {
-    "struct_file": "./Drain_result/BGL.log_structured.csv",
-    "template_file": "./Drain_result/BGL.log_templates.csv",
+    "struct_file": "./Drain_result/BGL_2.log_structured.csv",
+    "template_file": "./Drain_result/BGL_2.log_templates.csv",
 }
 
 os.makedirs(data_dir, exist_ok=True)
@@ -58,7 +58,7 @@ def preprocess_bgl(struct_file, template_file, **kwargs):
         EventTemplateIdent_token.values[0]
     )
 
-    trainWord2VecModelType2(token_train_list)
+    trainWord2VecModelType2(token_train_list, "BGL_word2Vec")
 
     print('Total rows: ', len(train_set) + len(test_set))
 

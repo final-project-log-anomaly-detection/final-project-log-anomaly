@@ -57,7 +57,7 @@ def preprocess_thunderbird(struct_file, template_file, **kwargs):
         EventTemplateIdent_token.values[0]
     )
 
-    trainWord2VecModelType2(token_train_list)
+    trainWord2VecModelType2(token_train_list, "thunderbird_word2Vec")
 
     print('Total rows: ', len(train_set) + len(test_set))
 
