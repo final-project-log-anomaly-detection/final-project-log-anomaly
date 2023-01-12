@@ -5,7 +5,7 @@ sys.path.append('../')
 input_dir = 'BGL/'
 output_dir = 'Drain_result/'
 
-log_file = 'BGL_2.log'
+log_file = 'BGL.log'
 
 log_format = '<Label> <Timestamp> <Date> <Node> <Time> <NodeRepeat> <Type> <Component> <Level> <Content>'
 

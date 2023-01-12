@@ -4,6 +4,11 @@ import pandas as pd
 
 from gensim.models.word2vec import Word2Vec
 import os
+import sys
+
+if __name__ == '__main__':
+    sys.path.append(os.path.abspath('data_preprocess'))
+
 import pickle
 from utils import json_pretty_dump, word2VecContinueLearning, trainWord2VecModel, tokenizeData, convertWord2Vec
 from sklearn.model_selection import train_test_split
@@ -61,6 +66,8 @@ def preprocess_thunderbird(log_file, test_ratio=None, train_anomaly_ratio=1, tra
     eventVectors = convertWord2Vec(eventTemplateTokenTest, model)
     test_data['EventTemplateIdentToken'] = eventTemplateTokenTest
     test_data['Vectors'] = eventVectors
+
+    print('Total rows: ', len(train_data) + len(test_data))
 
     print("# train sessions: {} ({:.2f}%)".format(len(train_data), 100*sum(train_data['Label'])/len(train_data)))
     print("# test sessions: {} ({:.2f}%)".format(len(test_data), 100*sum(test_data['Label'])/len(test_data)))
