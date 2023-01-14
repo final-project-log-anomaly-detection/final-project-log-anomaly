@@ -124,3 +124,8 @@ def parse_datetime(data):
     str_datetime = str_datetime.replace(str_month, str(list(calendar.month_abbr).index(str_month)))
     result_datetime = pd.to_datetime(str_datetime, format="%d/%m/%Y:%H:%M:%S +%f")
     return result_datetime
+
+
+def parse_month(data):
+    data = str(list(calendar.month_abbr).index(data))
+    return data
