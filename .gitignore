@@ -1,3 +1,9 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# models, data & output files
 /BGL
 /HDFS_1
 /Hadoop
@@ -5,3 +11,10 @@
 /glove
 /glove_word2vec
 /google_news
+/models
+/log
+/ipynb/output
+/experiment_records
+/Drain_result
+/data_preprocess/processed
+*.model
