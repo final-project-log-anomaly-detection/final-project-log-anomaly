@@ -11,6 +11,7 @@ __pycache__/
 /glove
 /glove_word2vec
 /google_news
+<<<<<<< HEAD
 /models
 /log
 /ipynb/output
@@ -18,3 +19,6 @@ __pycache__/
 /Drain_result
 /data_preprocess/processed
 *.model
+=======
+/AIT-LDS-v1_1
+>>>>>>> 01d95b425a84abf113da45423fbffa05e2ec636a

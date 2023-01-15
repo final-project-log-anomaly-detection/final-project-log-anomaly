@@ -5,6 +5,11 @@ import pandas as pd
 from gensim.models import Word2Vec, KeyedVectors
 from gensim.scripts.glove2word2vec import glove2word2vec
 import os
+import sys
+
+if __name__ == '__main__':
+    sys.path.append(os.path.abspath('data_preprocess'))
+
 import pickle
 from utils import json_pretty_dump, word2VecContinueLearning, trainWord2VecModel, tokenizeData, convertWord2Vec
 from sklearn.model_selection import train_test_split
@@ -23,11 +28,12 @@ data_name = f'bgl_{params["train_anomaly_ratio"]}_tar'
 data_dir = "data_preprocess/processed/BGL_preprocessed/"
 
 params = {
-    "log_file":  "/Users/thanadonlamsan/Documents/research project จบ/final_project_code/final-project-log-anomaly/Drain_result/BGL_2.log_structured.csv",
+    "log_file":  "./Drain_result/BGL_2.log_structured.csv",
+    "template_file": "./Drain_result/BGL_2.log_templates.csv",
     "test_ratio": 0.2,
     # "random_sessions": True,  # shuffle sessions
     "train_anomaly_ratio": params["train_anomaly_ratio"],
-    "train_word2Vec": False
+    "train_word2Vec": True
 }
 
 data_dir = os.path.join(data_dir, data_name)

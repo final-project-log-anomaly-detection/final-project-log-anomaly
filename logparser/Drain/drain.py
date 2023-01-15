@@ -245,7 +245,7 @@ class LogParser:
 
         # occ_dict = dict(self.df_log['EventTemplate'].value_counts())
         # df_event = pd.DataFrame()
-        # มั่นใจว่าถ้าใช้ unique มันจะได้ row ที่ครบพอดี คล้ายกับด้านบนเลย กุงง
+
         # df_event['EventTemplate'] = self.df_log['EventTemplate'].unique()
         # df_event['EventId'] = df_event['EventTemplate'].map(lambda x: hashlib.md5(x.encode('utf-8')).hexdigest()[0:8])
         # df_event['Occurrences'] = df_event['EventTemplate'].map(occ_dict)
@@ -386,8 +386,8 @@ class LogParser:
         return headers, regex
 
     def get_parameter_list(self, row):  # list parameter ออกมาจาก <*> แล้วเก็บใน column ParameterList
-        template_regex = re.sub(r"<.{1,5}>", "<*>", row["EventTemplate"])
-
+        # template_regex = re.sub(r"<.{1,5}>", "<*>", row["EventTemplate"])
+        template_regex = row["EventTemplate"]
         if "<*>" not in template_regex:
             return []
 
