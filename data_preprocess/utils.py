@@ -70,8 +70,8 @@ def trainWord2VecModelType2(token_train_list, model_name):
 
         embedder.train(token_train_list, total_examples=total_examples, epochs=10)
 
-    # embedder.wv.save_word2vec_format("../BGL-fine-tune-embedder.txt", binary=False)
-    embedder.save('../../'+f'{model_name}.model')
+    embedder.wv.save_word2vec_format(f"../../{model_name}-fine-tune-embedder.txt", binary=False)
+    # embedder.save('../../'+f'{model_name}.model')
 
     print('finish train word2Vec model . . . . . ^^')
 
