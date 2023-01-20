@@ -10,6 +10,7 @@ import pandas as pd
 import hashlib
 from datetime import datetime
 import logging
+from tqdm import tqdm
 
 _logger = logging.getLogger(__name__)
 
@@ -282,8 +283,7 @@ class LogParser:
         self.load_data()  # return self.df_log dataframe
         # print(self.df_log)
 
-        count = 0
-        for idx, line in self.df_log.iterrows():
+        for idx, line in tqdm(self.df_log.iterrows(), total=len(self.df_log), desc="Parsing log :"):
             logID = line['LineId']
             logmessageL, logmessageIdent = self.preprocess(line['Content'])
             logmessageL = logmessageL.strip().split()  # fill <*> in content then split
@@ -312,10 +312,6 @@ class LogParser:
                 if ' '.join(newTemplate) != ' '.join(matchCluster.logTemplate):
                     matchCluster.logTemplate = newTemplate
                     matchCluster.logTemplateIdent = newTemplateIdent
-
-            count += 1
-            if count % 1000 == 0 or count == len(self.df_log):
-                print('Processed {0:.1f}% of log lines.'.format(count * 100.0 / len(self.df_log)))
 
         # direction to save file
         if not os.path.exists(self.savePath):
