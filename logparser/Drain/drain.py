@@ -212,6 +212,46 @@ class LogParser:
     def outputResult(self, logClustL):  # logClustL คือ list ของ Logcluster
         log_templates = [0] * self.df_log.shape[0]
         log_templateids = [0] * self.df_log.shape[0]
+
+        df_events = []
+        event_ident = 1
+        for logClust in logClustL:
+            template_str = ' '.join(logClust.logTemplate)  # ต่อ template จากที่แยกเป็น list กลับเป็น string
+            occurrence = len(logClust.logIDL)
+            # template_id = 'E' + str(event_ident)  # เข้ารหัสเพื่อใช้เป็น event_ID
+            template_id = hashlib.md5(template_str.encode('utf-8')).hexdigest()[0:8]
+            for logID in logClust.logIDL:
+                logID -= 1
+                log_templates[logID] = template_str
+                log_templateids[logID] = template_id
+            # df_events.append([template_id, template_str, templateIdent_str, occurrence])  # data for log_templates.csv
+            df_events.append([template_id, template_str, occurrence])  # data for log_templates.csv
+            event_ident += 1
+
+        df_event = pd.DataFrame(df_events, columns=['EventId', 'EventTemplate', 'Occurrences'])
+        # convert list of event to dataFrame
+
+        self.df_log['EventId'] = log_templateids
+        self.df_log['EventTemplate'] = log_templates
+
+        # add 2 more column for EventId and EventTemplate
+        if self.keep_para:
+            _logger.warning(self.get_parameter_list)
+
+            self.df_log["ParameterList"] = self.df_log.apply(self.get_parameter_list, axis=1)
+
+        occ_dict = dict(self.df_log['EventTemplate'].value_counts())
+        df_event = pd.DataFrame()
+
+        df_event['EventTemplate'] = self.df_log['EventTemplate'].unique()
+        df_event['EventId'] = df_event['EventTemplate'].map(lambda x: hashlib.md5(x.encode('utf-8')).hexdigest()[0:8])
+        df_event['Occurrences'] = df_event['EventTemplate'].map(occ_dict)
+        df_event.to_csv(os.path.join(self.savePath, self.logName + '_templates.csv'), index=False,
+                        columns=['EventId', 'EventTemplate', 'Occurrences'])
+        
+    def outputResultIdent(self, logClustL):
+        log_templates = [0] * self.df_log.shape[0]
+        log_templateids = [0] * self.df_log.shape[0]
         log_templateIdents = [0] * self.df_log.shape[0]
 
         df_events = []
@@ -220,40 +260,36 @@ class LogParser:
             template_str = ' '.join(logClust.logTemplate)  # ต่อ template จากที่แยกเป็น list กลับเป็น string
             templateIdent_str = ' '.join(logClust.logTemplateIdent)
             occurrence = len(logClust.logIDL)
-            # template_id = 'E' + str(event_ident)  # เข้ารหัสเพื่อใช้เป็น event_ID
-            template_id = hashlib.md5(template_str.encode('utf-8')).hexdigest()[0:8]
+            template_id = hashlib.md5(templateIdent_str.encode('utf-8')).hexdigest()[0:8]
             for logID in logClust.logIDL:
                 logID -= 1
                 log_templates[logID] = template_str
                 log_templateids[logID] = template_id
                 log_templateIdents[logID] = templateIdent_str
-            df_events.append([template_id, template_str, templateIdent_str, occurrence])  # data for log_templates.csv
+            df_events.append([template_id, templateIdent_str, occurrence])  # data for log_templates.csv
             event_ident += 1
 
-        df_event = pd.DataFrame(df_events, columns=['EventId', 'EventTemplate', 'EventTemplateIdent', 'Occurrences'])
-        # convert list of event to dataFrame
-        # print(df_event)
+        df_event = pd.DataFrame(df_events, columns=['EventId', 'EventTemplateIdent', 'Occurrences'])
 
         self.df_log['EventId'] = log_templateids
         self.df_log['EventTemplate'] = log_templates
         self.df_log['EventTemplateIdent'] = log_templateIdents
-        # add 2 more column for EventId and EventTemplate
         if self.keep_para:
             _logger.warning(self.get_parameter_list)
 
             self.df_log["ParameterList"] = self.df_log.apply(self.get_parameter_list, axis=1)
 
+        self.df_log.drop(['EventTemplate'], axis=1)
         self.df_log.to_csv(os.path.join(self.savePath, self.logName + '_structured.csv'), index=False)
 
-        occ_dict = dict(self.df_log['EventTemplate'].value_counts())
+        occ_dict = dict(self.df_log['EventTemplateIdent'].value_counts())
         df_event = pd.DataFrame()
-
-        df_event['EventTemplate'] = self.df_log['EventTemplate'].unique()
-        df_event['EventId'] = df_event['EventTemplate'].map(lambda x: hashlib.md5(x.encode('utf-8')).hexdigest()[0:8])
-        df_event['Occurrences'] = df_event['EventTemplate'].map(occ_dict)
+        
         df_event['EventTemplateIdent'] = self.df_log['EventTemplateIdent'].unique()
+        df_event['EventId'] = df_event['EventTemplateIdent'].map(lambda x: hashlib.md5(x.encode('utf-8')).hexdigest()[0:8])
+        df_event['Occurrences'] = df_event['EventTemplateIdent'].map(occ_dict)
         df_event.to_csv(os.path.join(self.savePath, self.logName + '_templates.csv'), index=False,
-                        columns=['EventId', 'EventTemplate', 'EventTemplateIdent', 'Occurrences'])
+                        columns=['EventId', 'EventTemplateIdent', 'Occurrences'])
 
     def printTree(self, node, dep):
         pStr = ''
@@ -318,7 +354,7 @@ class LogParser:
         if not os.path.exists(self.savePath):
             os.makedirs(self.savePath)
 
-        self.outputResult(logCluL)
+        self.outputResultIdent(logCluL)
 
         print('Parsing done. [Time taken: {!s}]'.format(datetime.now() - start_time))
 
