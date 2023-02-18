@@ -239,6 +239,8 @@ class LogParser:
             _logger.warning(self.get_parameter_list)
 
             self.df_log["ParameterList"] = self.df_log.apply(self.get_parameter_list, axis=1)
+        
+        self.df_log.to_csv(os.path.join(self.savePath, self.logName + '_structured.csv'), index=False)
 
         occ_dict = dict(self.df_log['EventTemplate'].value_counts())
         df_event = pd.DataFrame()
@@ -280,7 +282,7 @@ class LogParser:
             self.df_log["ParameterList"] = self.df_log.apply(self.get_parameter_list, axis=1)
 
         self.df_log.drop(['EventTemplate'], axis=1)
-        self.df_log.to_csv(os.path.join(self.savePath, self.logName + '_structured.csv'), index=False)
+        self.df_log.to_csv(os.path.join(self.savePath, self.logName + '_ident_structured.csv'), index=False)
 
         occ_dict = dict(self.df_log['EventTemplateIdent'].value_counts())
         df_event = pd.DataFrame()
@@ -288,7 +290,7 @@ class LogParser:
         df_event['EventTemplateIdent'] = self.df_log['EventTemplateIdent'].unique()
         df_event['EventId'] = df_event['EventTemplateIdent'].map(lambda x: hashlib.md5(x.encode('utf-8')).hexdigest()[0:8])
         df_event['Occurrences'] = df_event['EventTemplateIdent'].map(occ_dict)
-        df_event.to_csv(os.path.join(self.savePath, self.logName + '_templates.csv'), index=False,
+        df_event.to_csv(os.path.join(self.savePath, self.logName + '_ident_templates.csv'), index=False,
                         columns=['EventId', 'EventTemplateIdent', 'Occurrences'])
 
     def printTree(self, node, dep):
