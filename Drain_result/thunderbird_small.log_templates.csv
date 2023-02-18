@@ -1,22 +1,22 @@
-EventId,EventTemplate,EventTemplateIdent,Occurrences
-99faeab9,pam_timestamp: updated timestamp file `/var/run/sudo/root/console',pam_timestamp: updated timestamp file `/var/run/sudo/root/console',1
-6144bc86,running '/usr/sbin/up<*>date --nox -i ganglia-gmond' with root privileges on behalf of 'root',running '/usr/sbin/up<Numbers>date --nox -i ganglia-gmond' with root privileges on behalf of 'root',1
-75133fe6,"synchronized to <*>, stratum <*>","synchronized to <IP>, stratum <Numbers>",2
-c8da9b23,[ib_sm_sweep.c:<*>]: ********************** NEW SWEEP ********************,[ib_sm_sweep.c:<Numbers>]: ********************** NEW SWEEP ********************,1
-fcc7ce1e,gmond <*> succeeded,gmond <similar_prev_pattern> succeeded,2
-f3f66216,Kickstart Install: Setup to become a Tbird login,Kickstart Install: Setup to become a Tbird login,1
-a26fdf53,Kickstart Install: tbird kernel package,Kickstart Install: tbird kernel package,1
-0a0321a8,Kickstart: setup firstboot for tbird panasas env,Kickstart: setup firstboot for tbird panasas env,1
-1d81fa4c,data_thread() got not answer from any [Thunderbird_B<*>] datasource,data_thread() got not answer from any [Thunderbird_B<Numbers>] datasource,2
-3b4e8455,RRD_update (/var/lib/ganglia/rrds/D Nodes/dn<*>/pkts_out.rrd): illegal attempt to update using time <*> when last update time is <*> (minimum one second step),RRD_update (/var/lib/ganglia/rrds/D Nodes/dn<Numbers>/pkts_out.rrd): illegal attempt to update using time <Numbers> when last update time is <Numbers> (minimum one second step),1
-5d0553ba,FADT (v<*> DELL PE BKC <*> MSFT <*>) @ <*>,FADT (v<Numbers> DELL PE BKC <Hexadecimal> MSFT <Hexadecimal>) @ <Hexadecimal>,1
-3cc194fc,HPET (v<*> DELL PE BKC <*> MSFT <*>) @ <*>,HPET (v<Numbers> DELL PE BKC <Hexadecimal> MSFT <Hexadecimal>) @ <Hexadecimal>,1
-d3aad3a7,ACPI: PCI Interrupt Routing Table [<*>],ACPI: PCI Interrupt Routing Table [<RT>],2
-5d0b2568,"[KERNEL_IB][tsIbTavorMadProcess][/mnt_projects/sysapps/src/ib/topspin/topspin-src-<*>.<*>.<*>-<*>/ib/tavor/provider/obj_host_amd<*>_custom<*>_rhel<*>/ts_ib_tavor/tavor_mad.c:<*>]InfiniHost<*>: EVAPI_process_local_mad failed, return code = -<*> (Fatal error (Local Catastrophic Error))","[KERNEL_IB][tsIbTavorMadProcess][/mnt_projects/sysapps/src/ib/topspin/topspin-src-<Numbers>.<Numbers>.<Numbers>-<Numbers>/ib/tavor/provider/obj_host_amd<Numbers>_custom<Numbers>_rhel<Numbers>/ts_ib_tavor/tavor_mad.c:<Numbers>]InfiniHost<Numbers>: EVAPI_process_local_mad failed, return code = -<Numbers> (Fatal error (Local Catastrophic Error))",3
-892e658b,dcevt<*>d startup succeeded,dcevt<Numbers>d startup succeeded,1
-7bc7ba78,dcstor<*>d startup succeeded,dcstor<Numbers>d startup succeeded,1
-c2e589ec,dcdipm device driver loaded,dcdipm device driver loaded,1
-c431dc9a,tput: No value for $TERM and no -T specified,tput: No value for $TERM and no -T specified,2
-1324d484,omsad<*> startup succeeded,omsad<Numbers> startup succeeded,1
-6f97e9d4,restart.,restart.,19
-9b1751bd,succeeded,succeeded,2
+EventId,EventTemplate,Occurrences
+b88d5f87,pam_timestamp: updated timestamp file `<*>,1
+154409e6,running '<*>,1
+75133fe6,"synchronized to <*>, stratum <*>",2
+c8da9b23,[ib_sm_sweep.c:<*>]: ********************** NEW SWEEP ********************,1
+fcc7ce1e,gmond <*> succeeded,2
+f3f66216,Kickstart Install: Setup to become a Tbird login,1
+a26fdf53,Kickstart Install: tbird kernel package,1
+0a0321a8,Kickstart: setup firstboot for tbird panasas env,1
+1d81fa4c,data_thread() got not answer from any [Thunderbird_B<*>] datasource,2
+28fcb8a9,RRD_update (<*> illegal attempt to update using time <*> when last update time is <*> (minimum one second step),1
+5d0553ba,FADT (v<*> DELL PE BKC <*> MSFT <*>) @ <*>,1
+3cc194fc,HPET (v<*> DELL PE BKC <*> MSFT <*>) @ <*>,1
+d3aad3a7,ACPI: PCI Interrupt Routing Table [<*>],2
+61b9cd92,"[KERNEL_IB][tsIbTavorMadProcess][<*><*>]InfiniHost<*>: EVAPI_process_local_mad failed, return code = -<*> (Fatal error (Local Catastrophic Error))",3
+892e658b,dcevt<*>d startup succeeded,1
+7bc7ba78,dcstor<*>d startup succeeded,1
+c2e589ec,dcdipm device driver loaded,1
+c431dc9a,tput: No value for $TERM and no -T specified,2
+1324d484,omsad<*> startup succeeded,1
+6f97e9d4,restart.,19
+9b1751bd,succeeded,2
