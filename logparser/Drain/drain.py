@@ -16,7 +16,7 @@ _logger = logging.getLogger(__name__)
 
 
 class Logcluster:
-    def __init__(self, logTemplate='', logTemplateIdent='', logIDL=None):
+    def __init__(self, logTemplate="", logTemplateIdent="", logIDL=None):
         self.logTemplate = logTemplate
         self.logTemplateIdent = logTemplateIdent
         # print(self.logTemplate)
@@ -35,8 +35,9 @@ class Node:
 
 
 class LogParser:
-    def __init__(self, log_format, indir='./', outdir='./result/', depth=4, st=0.4,
-                 maxChild=100, rex=[], keep_para=True):
+    def __init__(
+        self, log_format, indir="./", outdir="./result/", depth=4, st=0.4, maxChild=100, rex=[], keep_para=True
+    ):
         """
         Attributes
         ----------
@@ -78,8 +79,8 @@ class LogParser:
 
             if token in parentn.childD:
                 parentn = parentn.childD[token]
-            elif '<*>' in parentn.childD:
-                parentn = parentn.childD['<*>']
+            elif "<*>" in parentn.childD:
+                parentn = parentn.childD["<*>"]
             else:
                 return retLogClust
             currentDepth += 1
@@ -116,32 +117,32 @@ class LogParser:
             if token not in parentn.childD:
 
                 if not self.hasNumbers(token):
-                    if '<*>' in parentn.childD:
+                    if "<*>" in parentn.childD:
                         if len(parentn.childD) < self.maxChild:
                             newNode = Node(depth=currentDepth + 1, digitOrtoken=token)
                             parentn.childD[token] = newNode
                             parentn = newNode
                         else:
-                            parentn = parentn.childD['<*>']
+                            parentn = parentn.childD["<*>"]
                     else:
-                        if len(parentn.childD)+1 < self.maxChild:
-                            newNode = Node(depth=currentDepth+1, digitOrtoken=token)
+                        if len(parentn.childD) + 1 < self.maxChild:
+                            newNode = Node(depth=currentDepth + 1, digitOrtoken=token)
                             parentn.childD[token] = newNode
                             parentn = newNode
-                        elif len(parentn.childD)+1 == self.maxChild:
-                            newNode = Node(depth=currentDepth+1, digitOrtoken='<*>')
-                            parentn.childD['<*>'] = newNode
+                        elif len(parentn.childD) + 1 == self.maxChild:
+                            newNode = Node(depth=currentDepth + 1, digitOrtoken="<*>")
+                            parentn.childD["<*>"] = newNode
                             parentn = newNode
                         else:
-                            parentn = parentn.childD['<*>']
+                            parentn = parentn.childD["<*>"]
 
                 else:
-                    if '<*>' not in parentn.childD:
-                        newNode = Node(depth=currentDepth+1, digitOrtoken='<*>')
-                        parentn.childD['<*>'] = newNode
+                    if "<*>" not in parentn.childD:
+                        newNode = Node(depth=currentDepth + 1, digitOrtoken="<*>")
+                        parentn.childD["<*>"] = newNode
                         parentn = newNode
                     else:
-                        parentn = parentn.childD['<*>']
+                        parentn = parentn.childD["<*>"]
 
             # If the token is matched
             else:
@@ -156,7 +157,7 @@ class LogParser:
         numOfPar = 0
 
         for token1, token2 in zip(seq1, seq2):
-            if token1 == '<*>':
+            if token1 == "<*>":
                 numOfPar += 1
                 continue
             if token1 == token2:
@@ -175,7 +176,7 @@ class LogParser:
 
         for logClust in logClustL:
             # print(logClust)
-            curSim, curNumOfPara = self.seqDist(logClust.logTemplate, seq)
+            curSim, curNumOfPara = self.seqDist(logClust.logTemplateIdent, seq)
             if curSim > maxSim or (curSim == maxSim and curNumOfPara > maxNumOfPara):
                 maxSim = curSim
                 maxNumOfPara = curNumOfPara
@@ -187,7 +188,7 @@ class LogParser:
         return retLogClust
 
     def getTemplate(self, seq1, seq1_prev, ident, ident_prev):
-        assert len(seq1) == len(seq1_prev)
+        assert len(ident) == len(ident_prev)
         retVal = []
         retVal_sys_tag = []
         i = 0
@@ -195,7 +196,7 @@ class LogParser:
             if word == seq1_prev[i]:
                 retVal.append(word)
             else:
-                retVal.append('<*>')
+                retVal.append("<*>")
 
             i += 1
         i = 0
@@ -203,7 +204,7 @@ class LogParser:
             if word == ident_prev[i]:
                 retVal_sys_tag.append(word)
             else:
-                retVal_sys_tag.append('<similar_prev_pattern>')
+                retVal_sys_tag.append("<similar_prev_pattern>")
 
             i += 1
 
@@ -216,10 +217,10 @@ class LogParser:
         df_events = []
         event_ident = 1
         for logClust in logClustL:
-            template_str = ' '.join(logClust.logTemplate)  # ต่อ template จากที่แยกเป็น list กลับเป็น string
+            template_str = " ".join(logClust.logTemplate)  # ต่อ template จากที่แยกเป็น list กลับเป็น string
             occurrence = len(logClust.logIDL)
             # template_id = 'E' + str(event_ident)  # เข้ารหัสเพื่อใช้เป็น event_ID
-            template_id = hashlib.md5(template_str.encode('utf-8')).hexdigest()[0:8]
+            template_id = hashlib.md5(template_str.encode("utf-8")).hexdigest()[0:8]
             for logID in logClust.logIDL:
                 logID -= 1
                 log_templates[logID] = template_str
@@ -228,29 +229,32 @@ class LogParser:
             df_events.append([template_id, template_str, occurrence])  # data for log_templates.csv
             event_ident += 1
 
-        df_event = pd.DataFrame(df_events, columns=['EventId', 'EventTemplate', 'Occurrences'])
+        df_event = pd.DataFrame(df_events, columns=["EventId", "EventTemplate", "Occurrences"])
         # convert list of event to dataFrame
 
-        self.df_log['EventId'] = log_templateids
-        self.df_log['EventTemplate'] = log_templates
+        self.df_log["EventId"] = log_templateids
+        self.df_log["EventTemplate"] = log_templates
 
         # add 2 more column for EventId and EventTemplate
         if self.keep_para:
             _logger.warning(self.get_parameter_list)
 
             self.df_log["ParameterList"] = self.df_log.apply(self.get_parameter_list, axis=1)
-        
-        self.df_log.to_csv(os.path.join(self.savePath, self.logName + '_structured.csv'), index=False)
 
-        occ_dict = dict(self.df_log['EventTemplate'].value_counts())
+        self.df_log.to_csv(os.path.join(self.savePath, self.logName + "_structured.csv"), index=False)
+
+        occ_dict = dict(self.df_log["EventTemplate"].value_counts())
         df_event = pd.DataFrame()
 
-        df_event['EventTemplate'] = self.df_log['EventTemplate'].unique()
-        df_event['EventId'] = df_event['EventTemplate'].map(lambda x: hashlib.md5(x.encode('utf-8')).hexdigest()[0:8])
-        df_event['Occurrences'] = df_event['EventTemplate'].map(occ_dict)
-        df_event.to_csv(os.path.join(self.savePath, self.logName + '_templates.csv'), index=False,
-                        columns=['EventId', 'EventTemplate', 'Occurrences'])
-        
+        df_event["EventTemplate"] = self.df_log["EventTemplate"].unique()
+        df_event["EventId"] = df_event["EventTemplate"].map(lambda x: hashlib.md5(x.encode("utf-8")).hexdigest()[0:8])
+        df_event["Occurrences"] = df_event["EventTemplate"].map(occ_dict)
+        df_event.to_csv(
+            os.path.join(self.savePath, self.logName + "_templates.csv"),
+            index=False,
+            columns=["EventId", "EventTemplate", "Occurrences"],
+        )
+
     def outputResultIdent(self, logClustL):
         log_templates = [0] * self.df_log.shape[0]
         log_templateids = [0] * self.df_log.shape[0]
@@ -259,10 +263,10 @@ class LogParser:
         df_events = []
         event_ident = 1
         for logClust in logClustL:
-            template_str = ' '.join(logClust.logTemplate)  # ต่อ template จากที่แยกเป็น list กลับเป็น string
-            templateIdent_str = ' '.join(logClust.logTemplateIdent)
+            template_str = " ".join(logClust.logTemplate)  # ต่อ template จากที่แยกเป็น list กลับเป็น string
+            templateIdent_str = " ".join(logClust.logTemplateIdent)
             occurrence = len(logClust.logIDL)
-            template_id = hashlib.md5(templateIdent_str.encode('utf-8')).hexdigest()[0:8]
+            template_id = hashlib.md5(templateIdent_str.encode("utf-8")).hexdigest()[0:8]
             for logID in logClust.logIDL:
                 logID -= 1
                 log_templates[logID] = template_str
@@ -271,37 +275,42 @@ class LogParser:
             df_events.append([template_id, templateIdent_str, occurrence])  # data for log_templates.csv
             event_ident += 1
 
-        df_event = pd.DataFrame(df_events, columns=['EventId', 'EventTemplateIdent', 'Occurrences'])
+        df_event = pd.DataFrame(df_events, columns=["EventId", "EventTemplateIdent", "Occurrences"])
 
-        self.df_log['EventId'] = log_templateids
-        self.df_log['EventTemplate'] = log_templates
-        self.df_log['EventTemplateIdent'] = log_templateIdents
+        self.df_log["EventId"] = log_templateids
+        self.df_log["EventTemplate"] = log_templates
+        self.df_log["EventTemplateIdent"] = log_templateIdents
         if self.keep_para:
             _logger.warning(self.get_parameter_list)
 
             self.df_log["ParameterList"] = self.df_log.apply(self.get_parameter_list, axis=1)
 
-        self.df_log.drop(['EventTemplate'], axis=1)
-        self.df_log.to_csv(os.path.join(self.savePath, self.logName + '_ident_structured.csv'), index=False)
+        self.df_log.drop(["EventTemplate"], axis=1)
+        self.df_log.to_csv(os.path.join(self.savePath, self.logName + "_ident_structured.csv"), index=False)
 
-        occ_dict = dict(self.df_log['EventTemplateIdent'].value_counts())
+        occ_dict = dict(self.df_log["EventTemplateIdent"].value_counts())
         df_event = pd.DataFrame()
-        
-        df_event['EventTemplateIdent'] = self.df_log['EventTemplateIdent'].unique()
-        df_event['EventId'] = df_event['EventTemplateIdent'].map(lambda x: hashlib.md5(x.encode('utf-8')).hexdigest()[0:8])
-        df_event['Occurrences'] = df_event['EventTemplateIdent'].map(occ_dict)
-        df_event.to_csv(os.path.join(self.savePath, self.logName + '_ident_templates.csv'), index=False,
-                        columns=['EventId', 'EventTemplateIdent', 'Occurrences'])
+
+        df_event["EventTemplateIdent"] = self.df_log["EventTemplateIdent"].unique()
+        df_event["EventId"] = df_event["EventTemplateIdent"].map(
+            lambda x: hashlib.md5(x.encode("utf-8")).hexdigest()[0:8]
+        )
+        df_event["Occurrences"] = df_event["EventTemplateIdent"].map(occ_dict)
+        df_event.to_csv(
+            os.path.join(self.savePath, self.logName + "_ident_templates.csv"),
+            index=False,
+            columns=["EventId", "EventTemplateIdent", "Occurrences"],
+        )
 
     def printTree(self, node, dep):
-        pStr = ''
+        pStr = ""
         for i in range(dep):
-            pStr += '\t'
+            pStr += "\t"
 
         if node.depth == 0:
-            pStr += 'Root'
+            pStr += "Root"
         elif node.depth == 1:
-            pStr += '<' + str(node.digitOrtoken) + '>'
+            pStr += "<" + str(node.digitOrtoken) + ">"
         else:
             pStr += node.digitOrtoken
 
@@ -310,10 +319,10 @@ class LogParser:
         if node.depth == self.depth:
             return 1
         for child in node.childD:
-            self.printTree(node.childD[child], dep+1)
+            self.printTree(node.childD[child], dep + 1)
 
     def parse(self, logName):
-        print('Parsing file: ' + os.path.join(self.path, logName))
+        print("Parsing file: " + os.path.join(self.path, logName))
         start_time = datetime.now()
         self.logName = logName
         rootNode = Node()
@@ -323,12 +332,12 @@ class LogParser:
         # print(self.df_log)
 
         for idx, line in tqdm(self.df_log.iterrows(), total=len(self.df_log), desc="Parsing log :"):
-            logID = line['LineId']
-            logmessageL, logmessageIdent = self.preprocess(line['Content'])
+            logID = line["LineId"]
+            logmessageL, logmessageIdent = self.preprocess(line["Content"])
             logmessageL = logmessageL.strip().split()  # fill <*> in content then split
             logmessageIdent = logmessageIdent.strip().split()
             # logmessageL = filter(lambda x: x != '', re.split('[\s=:,]', self.preprocess(line['Content'])))
-            matchCluster = self.treeSearch(rootNode, logmessageL)
+            matchCluster = self.treeSearch(rootNode, logmessageIdent)
 
             # search หา logmessage ที่ match กับ logmessageL ที่ split ออกมา
 
@@ -341,24 +350,25 @@ class LogParser:
 
             # Add the new log message to the existing cluster
             else:
-                newTemplate, newTemplateIdent = self.getTemplate(logmessageL, matchCluster.logTemplate,
-                                                                 logmessageIdent, matchCluster.logTemplateIdent)
+                newTemplate, newTemplateIdent = self.getTemplate(
+                    logmessageL, matchCluster.logTemplate, logmessageIdent, matchCluster.logTemplateIdent
+                )
+
                 # getTemplate มันจะเช็ค logmessage ใหม่ที่แบ่งมาแล้วไปเทียบกับ template ที่เหมือนกัน
                 # มีโอกาสที่ มันอาจจะเช็คกันแล้ว template มันไม่เหมือนกันก็จะยึดตามตัวใหม่ โดยเช็คอีกทีตอน if ด้านล่าง
                 # ถ้า match กับ template ที่มีอยู่ก็จะ add logID เข้าไปเพื่อบอกว่าบรรทัดไหน
                 matchCluster.logIDL.append(logID)
                 # print(matchCluster.logIDL)
-                if ' '.join(newTemplate) != ' '.join(matchCluster.logTemplate):
+                if " ".join(newTemplateIdent) != " ".join(matchCluster.logTemplateIdent):
                     matchCluster.logTemplate = newTemplate
                     matchCluster.logTemplateIdent = newTemplateIdent
 
         # direction to save file
         if not os.path.exists(self.savePath):
             os.makedirs(self.savePath)
-
         self.outputResultIdent(logCluL)
 
-        print('Parsing done. [Time taken: {!s}]'.format(datetime.now() - start_time))
+        print("Parsing done. [Time taken: {!s}]".format(datetime.now() - start_time))
 
     def load_data(self):
         headers, regex = self.generate_logformat_regex(self.log_format)
@@ -371,18 +381,17 @@ class LogParser:
     def preprocess(self, line):  # ใส่ <*> ให้กับ ข้อมูลที่เป็น content
         line2 = line
         for currentRex in self.rex:
-            line = re.sub(currentRex['regex'], '<*>', line)
-            line2 = re.sub(currentRex['regex'], '<'+currentRex['name']+'>', line2)
+            line = re.sub(currentRex["regex"], "<*>", line)
+            line2 = re.sub(currentRex["regex"], "<" + currentRex["name"] + ">", line2)
 
         return line, line2
 
     def log_to_dataframe(self, log_file, regex, headers, logformat):
-        """ Function to transform log file to dataframe 
-        """
+        """Function to transform log file to dataframe"""
         log_messages = []
         linecount = 0
         # print(regex)
-        with open(log_file, 'r') as fin:
+        with open(log_file, "r") as fin:
             for line in fin.readlines():
                 try:
                     match = regex.search(line.strip())  # ตัดอักขระพิเศษหลังข้อความออกเช่น \n
@@ -393,31 +402,30 @@ class LogParser:
                 except Exception as e:
                     pass
         logdf = pd.DataFrame(log_messages, columns=headers)
-        logdf.insert(0, 'LineId', None)
-        logdf['LineId'] = [i + 1 for i in range(linecount)]
+        logdf.insert(0, "LineId", None)
+        logdf["LineId"] = [i + 1 for i in range(linecount)]
         return logdf
 
     def generate_logformat_regex(self, logformat):
-        """ Function to generate regular expression to split log messages
-        """
+        """Function to generate regular expression to split log messages"""
 
         headers = []
-        splitters = re.split(r'(<[^<>]+>)', logformat)
+        splitters = re.split(r"(<[^<>]+>)", logformat)
         # ['', '<Date>', ' ', '<Time>', ' ', '<Pid>', ' ', '<Level>', ' ', '<Component>', ': ', '<Content>', '']
         # print(splitters)
-        regex = ''
+        regex = ""
 
         for k in range(len(splitters)):
             if k % 2 == 0:
-                splitter = re.sub(' +', '\\\s+', splitters[k])
+                splitter = re.sub(" +", "\\\s+", splitters[k])
                 regex += splitter
 
             else:
-                header = splitters[k].strip('<').strip('>')
-                regex += '(?P<%s>.*?)' % header  # such as (?P<Date>.*?)
+                header = splitters[k].strip("<").strip(">")
+                regex += "(?P<%s>.*?)" % header  # such as (?P<Date>.*?)
                 headers.append(header)
 
-        regex = re.compile('^' + regex + '$')
+        regex = re.compile("^" + regex + "$")
         return headers, regex
 
     def get_parameter_list(self, row):  # list parameter ออกมาจาก <*> แล้วเก็บใน column ParameterList
@@ -426,8 +434,8 @@ class LogParser:
         if "<*>" not in template_regex:
             return []
 
-        template_regex = re.sub(r'([^A-Za-z0-9])', r'\\\1', template_regex)
-        template_regex = re.sub(r'\\ +', r'\s+', template_regex)
+        template_regex = re.sub(r"([^A-Za-z0-9])", r"\\\1", template_regex)
+        template_regex = re.sub(r"\\ +", r"\s+", template_regex)
         template_regex = "^" + template_regex.replace("\<\*\>", "(.*?)") + "$"
 
         parameter_list = re.findall(template_regex, row["Content"])
